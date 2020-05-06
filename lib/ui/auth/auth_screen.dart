@@ -7,8 +7,10 @@ import 'package:flutter_app/services/authentication/bloc/authentication_event.da
 import 'package:flutter_app/services/user/bloc/user_bloc.dart';
 import 'package:flutter_app/ui/app/runtime.dart';
 import 'package:flutter_app/ui/auth/widgets/page/auth_page.dart';
+import 'package:flutter_app/ui/config/bloc/shared_state.dart';
 import 'package:flutter_app/utils/bloc_helpers/bloc_provider.dart';
 import 'package:flutter_app/utils/bloc_widgets/bloc_lifecycle.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen>
     with SingleTickerProviderStateMixin, BlocLifecycle {
 
+  SharedState _sharedState;
   StreamSubscription _authStateSubscription;
   StreamSubscription _userStateSubscription;
   StreamSubscription _linkSubscription;
@@ -34,8 +37,11 @@ class _AuthScreenState extends State<AuthScreen>
 
   void initBloc() {
 
+    _sharedState = Provider.of<SharedState>(context);
     _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
     _userBloc = BlocProvider.of<UserBloc>(context);
+
+    _sharedState.fromAuth = true;
 
     // Link
     _linkSubscription = _authenticationBloc.currentAuthInfo.listen(_userBloc.authInfoResult);

@@ -27,7 +27,7 @@ class _AuthPageState extends State<AuthPage> {
                   Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 44.0, horizontal: 16.0),
                       child: AnimatedIdentityCard(),
                     ),
                   ),

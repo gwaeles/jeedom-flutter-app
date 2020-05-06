@@ -99,7 +99,7 @@ class _ConfigScreenState extends State<ConfigScreen> with BlocLifecycle {
         blocBuilder: () => _configBloc,
         child: BlocProvider<ScannerBloc>(
             blocBuilder: () => _scannerBloc,
-            child: ConfigPage()
+            child: ConfigPage(),
         )
     );
   }

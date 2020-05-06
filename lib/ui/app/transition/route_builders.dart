@@ -26,25 +26,37 @@ class SlideFromTopRoute extends PageRouteBuilder {
 }
 
 class SlideFromRightRoute extends PageRouteBuilder {
+  final Widget exitPage;
   final Widget page;
 
-  SlideFromRightRoute({this.page}) : super(
+  SlideFromRightRoute({this.exitPage, this.page}) : super(
     pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation,) => page,
     transitionDuration: Duration(milliseconds: (350 * Runtime.animationSpeed).round()),
     transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child,) {
 
-      return SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1, 0),
-          end: Offset.zero,
-        ).animate(animation),
-        child: SlideTransition(
-          position: Tween<Offset>(
-            begin: Offset.zero,
-            end: const Offset(1, 0),
-          ).animate(secondaryAnimation),
-          child: child,
-        ),
+      return Stack(
+        children: <Widget>[
+          SlideTransition(
+            position: Tween<Offset>(
+              begin: Offset.zero,
+              end: const Offset(-1, 0),
+            ).animate(animation),
+            child: exitPage,
+          ),
+          SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: Offset.zero,
+                end: const Offset(1, 0),
+              ).animate(secondaryAnimation),
+              child: child,
+            ),
+          )
+        ],
       );
     },
   );

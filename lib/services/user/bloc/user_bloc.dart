@@ -22,8 +22,6 @@ class UserBloc extends BlocEventStateBase<UserEvent, UserState> {
   FireStoreRepository fireStoreRepository;
   StreamSubscription firestoreSubscription;
 
-  String lastRequestedRoute;
-
   UserBloc()
       : super(
     initialState: UserState.starting(),
@@ -116,15 +114,6 @@ class UserBloc extends BlocEventStateBase<UserEvent, UserState> {
       }
     }
   };
-
-  bool requestRoute(String requestedRoute) {
-    if (lastRequestedRoute == requestedRoute) {
-      return false;
-    }
-
-    lastRequestedRoute = requestedRoute;
-    return true;
-  }
 
   @override
   void dispose() {
